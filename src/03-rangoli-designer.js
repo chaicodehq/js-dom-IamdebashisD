@@ -71,24 +71,75 @@
  */
 export function addColors(element, ...colors) {
   // Your code here
+  if (!element || typeof element === 'undefined') return -1
+
+  let count = 0
+
+  for (let color of colors) {
+    if (!element.classList.contains(color)) {
+      element.classList.add(color)
+      count ++
+    }
+  }
+
+  return count
 }
 
 export function removeColors(element, ...colors) {
   // Your code here
+  if (!element || typeof element === 'undefined') return -1
+
+  let count = 0
+
+  for (let color of colors) {
+    if (element.classList.contains(color)){
+      element.classList.remove(color)
+      count ++
+    }
+  }
+
+  return count
 }
 
 export function togglePattern(element, pattern) {
   // Your code here
+  if (!element || typeof element === 'undefined') return null
+  
+  const className = `pattern-${pattern}`
+  return element.classList.toggle(className)
+
 }
 
 export function hasDesign(element, designName) {
   // Your code here
+  if (!element || typeof element === 'undefined') return false
+
+  const className = `design-${designName}`
+
+  if (!element.classList.contains(className)) return false
+  
+  return true
 }
 
 export function replaceDesign(element, oldDesign, newDesign) {
   // Your code here
+  if (!element || typeof element === 'undefined') return false
+
+  if (element.classList.contains(`design-${oldDesign}`)){
+    element.classList.remove(`design-${oldDesign}`)
+    element.classList.add(`design-${newDesign}`)
+    return true
+  } else {
+    element.classList.add(`design-${newDesign}`)
+    return false
+  }
 }
 
 export function getActiveColors(element) {
   // Your code here
+  if (!element || typeof element === 'undefined') return []
+
+  return Array.from(element.classList)
+    .filter(cls => cls.startsWith('color-'))
+    .map(cls => cls.replace('color-', ''));
 }
